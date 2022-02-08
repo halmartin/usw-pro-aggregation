@@ -1,0 +1,8 @@
+menuconfig SOC_XGS_IPROC
+	bool "Broadcom XGS iProc IDM/DMU/PMU drivers"
+	depends on ARCH_XGS_IPROC
+	default ARCH_XGS_IPROC
+	help
+	  This option enables XGS iProc IDM/DMU/PMU related drivers.
+
+	  If unsure, say Y.

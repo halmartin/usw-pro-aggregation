@@ -1,0 +1,46 @@
+Broadcom XGS iProc GPIO Controller
+
+Required properties:
+- compatible : Should be "brcm,iproc-gpio,cca" or "brcm,iproc-gpio,ccg".
+ 	"brcm,iproc-gpio,cca" is used for CCA type gpio controllers on Helix4/Katana2/HR2. 
+	"brcm,iproc-gpio,ccg" is used for CCG type gpio controllers on Grehound/Saber2/HR3/Greyhound2.
+- reg : Physical base address and length of the controller's registers.
+- #gpio-cells : should be 2
+- ngpios : The number of GPIO's the controller provides.
+- interrupts : The interrupt id for the controller.
+- pin-base : The first chip GPIO pin provided by CCA or CCG. For Helix4, set to 4.
+- pin-offset : The offset of available CCA or CCG GPIO pins. For Helix4, set to 0.
+- gpio-controller : Marks the device node as a GPIO controller.
+
+Optional properties:
+- interrupt-controller : Marks the device node as an interrupt controller.
+
+
+Examples for cca gpio:
+
+  gpio_cca: gpio@18000060 {
+		compatible = "brcm,iproc-gpio,cca";
+		#gpio-cells = <2>;
+		reg = gpio: <0x18000060 0x50>,
+		     		intr: <0x18000000 0x50>;
+		ngpios = <8>;
+		pin-offset = <0>;
+		pin-base = <4>;
+		gpio-controller;
+		interrupt-controller;
+		interrupts = <GIC_SPI 91 IRQ_TYPE_LEVEL_HIGH>;
+	};
+
+  gpio_ccg: gpio@1800a000 {
+		compatible = "brcm,iproc-gpio,ccg";
+		#gpio-cells = <2>;
+		reg = gpio: <0x1800a000 0x50>;
+		ngpios = <12>;
+		pin-offset = <4>;
+		pin-base = <4>;
+		gpio-controller;
+		interrupt-controller;
+		interrupts = <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
+	};
+
+	

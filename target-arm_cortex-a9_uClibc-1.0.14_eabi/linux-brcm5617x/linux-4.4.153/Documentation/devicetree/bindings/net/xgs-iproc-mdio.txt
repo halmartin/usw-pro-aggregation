@@ -1,0 +1,30 @@
+* Broadcom XGS iProc MDIO bus controller
+
+Required properties:
+- compatible: should be "brcm,iproc-ccb-mdio" or "brcm,iproc-ccg-mdio" or "brcm,iproc-cmicd-mdio"
+- reg: address and length of the register set for the MDIO interface
+- #size-cells: must be 0
+- #address-cells: must be 1
+- #bus-id: Physical bus ID
+- #logical-bus-id: Logical bus ID, required for cmicd
+- bus-type: "internal" or "external"
+- clocks: clock source
+
+Example:
+
+	mdio_int: mdio_int@18002000 {
+		compatible = "brcm,iproc-ccg-mdio";
+		reg = <0x18002000 0x1000>;
+		#bus-id = <0>;
+		bus-type = "internal";
+		clocks = <&iproc_apb_clk>;
+	};
+	
+	mdio_ext: mdio_ext@03210000 {
+		compatible = "brcm,iproc-cmicd-mdio";
+		reg = <0x03210000 0x1000>;
+		#bus-id = <2>;
+		#logical-bus-id = <0>;
+		bus-type = "external";
+		clocks = <&iproc_apb_clk>;
+	};

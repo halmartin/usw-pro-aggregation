@@ -1,0 +1,34 @@
+BROADCOM XGS iProc QSPI controller
+
+Required properties:
+- compatible: "brcm,iproc-qspi";
+- reg: Offset and length of the register set including 
+		mspi_hw: Master SPI
+		bspi_hw: Boot SPI
+		bspi_hw_raf: Boot SPI read ahead fifo
+		qspi_intr: QSPI interrupt related
+		idm_qspi:QSPI IDM related
+		cru_hw: QSPI CRU related
+- interrupts: interrupt id of the QSPI controller		
+- clocks: clock source
+
+Optional properties:
+- #chip-select: Specify the used chip select for controller with multi chip selects
+
+Example:
+
+  qspi: spi@18047000 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			compatible = "brcm,iproc-qspi";
+			reg = mspi_hw:<0x18047200 0x188>,
+		      		bspi_hw:<0x18047000 0x050>,
+		  		bspi_hw_raf:<0x18047100 0x024>,
+		    		qspi_intr:<0x180473a0 0x01c>,
+		     		idm_qspi:<0x1811f408 0x004>,
+		      		cru_hw:<0x1800e000 0x004>;
+			interrupts = <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>;
+			#chip-select = <0>; 
+			clocks = <&iproc_apb_clk>;
+		};
+		
